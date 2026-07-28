@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Kansai Dispatch — Six Gentle Days in Osaka, Kyoto &amp; Nara</title>
+<style>
+  :root{
+    --ink:#1c1a17; --ink2:#4a453d; --muted:#7c756a;
+    --paper:#faf6ee; --paper2:#f2ebdd; --card:#ffffff; --line:#e4dccb;
+    --osaka:#c0402c; --kyoto:#234f6e; --onsen:#2e7d74; --gold:#a9812a; --airport:#6d6459;
+    --shadow:0 1px 2px rgba(40,30,15,.05),0 8px 24px rgba(40,30,15,.06);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:"Helvetica Neue",Arial,"Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+    font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:var(--kyoto)}
+
+  /* ---------- masthead ---------- */
+  .masthead{border-bottom:2px solid var(--ink);background:var(--paper)}
+  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 22px;font-family:var(--sans)}
+  .masthead .brand{font-family:var(--serif);font-weight:700;letter-spacing:.02em;font-size:20px}
+  .masthead .brand em{color:var(--osaka);font-style:normal}
+  .masthead .meta{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:52px 0 30px;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--osaka);font-weight:700;margin-bottom:18px}
+  .hero h1{font-size:clamp(38px,6.4vw,68px);line-height:1.02;margin:.1em 0 .28em;
+    font-weight:800;letter-spacing:-.015em}
+  .hero .dek{font-size:clamp(20px,2.5vw,25px);color:var(--ink2);font-style:italic;
+    max-width:40ch;margin:0 0 26px}
+  .byline{font-family:var(--sans);font-size:13px;letter-spacing:.03em;color:var(--muted);
+    display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0}
+  .byline b{color:var(--ink);font-weight:700}
+  .byline .dot{color:var(--line)}
+
+  section{padding:40px 0}
+  .sec-label{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .sec-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  h2.title{font-size:clamp(27px,3.6vw,38px);font-weight:800;letter-spacing:-.01em;margin:.1em 0 .5em}
+  .lead{font-size:21px;color:var(--ink2);max-width:66ch}
+  .lead .drop::first-letter{initial-letter:2.4;-webkit-initial-letter:2.4;font-weight:800;
+    color:var(--osaka);margin-right:10px;font-family:var(--serif)}
+  p{max-width:66ch}
+
+  /* ---------- journey timeline graph ---------- */
+  .legend{display:flex;flex-wrap:wrap;gap:10px 18px;font-family:var(--sans);font-size:13px;
+    color:var(--ink2);margin:6px 0 26px}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .swatch{width:13px;height:13px;border-radius:4px;display:inline-block}
+
+  .timeline{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:0;
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:26px 12px 20px;box-shadow:var(--shadow);overflow:hidden}
+  .timeline::before{content:"";position:absolute;left:8%;right:8%;top:83px;height:3px;
+    background:linear-gradient(90deg,var(--osaka) 0 42%,var(--onsen) 42% 43%,
+      var(--kyoto) 43% 72%,var(--airport) 72% 100%);border-radius:3px;opacity:.35}
+  .tl-day{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:0 6px;z-index:1}
+  .tl-date{font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  .tl-dow{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:12px}
+  .tl-node{width:58px;height:58px;border-radius:50%;background:var(--card);border:3px solid;
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .tl-node svg{width:32px;height:32px}
+  .tl-city{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:8px;white-space:nowrap}
+  .tl-what{font-size:14.5px;line-height:1.3;color:var(--ink2);max-width:15ch}
+  .c-osaka{color:var(--osaka)} .b-osaka{border-color:var(--osaka)} .bg-osaka{background:#f7e3de;color:var(--osaka)}
+  .c-kyoto{color:var(--kyoto)} .b-kyoto{border-color:var(--kyoto)} .bg-kyoto{background:#dde7ef;color:var(--kyoto)}
+  .c-onsen{color:var(--onsen)} .b-onsen{border-color:var(--onsen)} .bg-onsen{background:#d7ebe8;color:var(--onsen)}
+  .c-air{color:var(--airport)} .b-air{border-color:var(--airport)} .bg-air{background:#e6e1d9;color:var(--airport)}
+
+  /* ---------- day cards ---------- */
+  .days{display:flex;flex-direction:column;gap:22px;margin-top:10px}
+  .day{display:grid;grid-template-columns:132px 1fr;gap:26px;background:var(--card);
+    border:1px solid var(--line);border-radius:16px;padding:22px 26px;box-shadow:var(--shadow)}
+  .day .art{align-self:start;position:relative}
+  .day .art .badge{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:700;text-align:center;margin-top:8px}
+  .day .art svg{width:118px;height:118px;display:block}
+  .day h3{font-size:24px;margin:.1em 0 .1em;font-weight:800;letter-spacing:-.01em}
+  .day .when{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin-bottom:10px}
+  .day p{margin:.5em 0;font-size:18px}
+  .day .tag{font-weight:700}
+  .tag.osaka{color:var(--osaka)} .tag.kyoto{color:var(--kyoto)} .tag.onsen{color:var(--onsen)}
+
+  .note{background:var(--paper2);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;
+    padding:12px 18px;font-size:16.5px;color:var(--ink2);margin-top:12px}
+  .note b{color:var(--gold)}
+
+  /* ---------- shopping ---------- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:22px 24px;box-shadow:var(--shadow)}
+  .panel h3{display:flex;align-items:center;gap:12px;font-size:21px;margin:.1em 0 .2em;font-weight:800}
+  .panel h3 svg{width:38px;height:38px;flex:none}
+  .panel .sub{font-family:var(--sans);font-size:13px;color:var(--muted);margin-bottom:14px}
+  .shop{border-top:1px solid var(--line);padding:11px 0}
+  .shop:last-child{padding-bottom:0}
+  .shop .nm{font-weight:700}
+  .shop .ds{font-size:15.5px;color:var(--ink2);line-height:1.5}
+  .shop .loc{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--muted);
+    text-transform:uppercase}
+
+  /* ---------- dining chips ---------- */
+  .chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;
+    box-shadow:var(--shadow)}
+  .chip .c-city{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    font-weight:700;margin-bottom:6px}
+  .chip .c-name{font-weight:700;font-size:18px}
+  .chip .c-desc{font-size:15px;color:var(--ink2);line-height:1.45;margin-top:2px}
+
+  .phrase{background:#231f1a;color:#f6ede0;border-radius:16px;padding:22px 26px;margin-top:22px;
+    display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+  .phrase .jp{font-size:28px;color:#f3c98a;font-weight:700}
+  .phrase .en{font-size:15.5px;color:#d8cdbb;font-family:var(--sans);max-width:52ch}
+
+  /* ---------- know before ---------- */
+  .kbg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .kb{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
+    box-shadow:var(--shadow)}
+  .kb h4{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:17px;font-weight:800}
+  .kb h4 svg{width:26px;height:26px}
+  .kb ul{margin:0;padding-left:18px}
+  .kb li{font-size:15.5px;color:var(--ink2);margin:6px 0;line-height:1.5}
+
+  footer{border-top:2px solid var(--ink);margin-top:20px;padding:26px 0 60px;color:var(--muted);
+    font-family:var(--sans);font-size:13px}
+  footer .jp{font-family:var(--serif);color:var(--gold);font-size:18px}
+
+  @media(max-width:760px){
+    body{font-size:18px}
+    .timeline{grid-template-columns:1fr;gap:4px;padding:14px 14px}
+    .timeline::before{display:none}
+    .tl-day{flex-direction:row;text-align:left;gap:14px;align-items:center;
+      border-bottom:1px solid var(--line);padding:10px 2px}
+    .tl-day:last-child{border-bottom:none}
+    .tl-node{margin-bottom:0;flex:none;width:50px;height:50px}
+    .tl-node svg{width:27px;height:27px}
+    .tl-dow{margin-bottom:0}
+    .tl-meta{display:flex;flex-direction:column}
+    .tl-what{max-width:none;font-size:15px}
+    .tl-city{margin:2px 0}
+    .day{grid-template-columns:1fr;gap:10px}
+    .day .art{display:flex;align-items:center;gap:14px}
+    .day .art svg{width:74px;height:74px}
+    .day .art .badge{margin-top:0}
+    .split{grid-template-columns:1fr}
+  }
+  @media print{ body{background:#fff} .masthead .meta{display:none} .day,.panel,.chip,.kb,.timeline{box-shadow:none} }
+</style>
+</head>
+<body>
+
+<!-- ================= SVG SYMBOL LIBRARY ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- airplane -->
+    <symbol id="i-plane" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 27l36-11c2-.6 3.4 2 1.6 3.2L14 38l-4-1 3-8-7 2-3-2z"/>
+        <path d="M22 25l6 6"/>
+      </g>
+    </symbol>
+    <!-- castle -->
+    <symbol id="i-castle" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 5l12 7-1 3H13l-1-3z"/>
+        <path d="M14 15v6h20v-6"/>
+        <path d="M12 21c3 2 21 2 24 0v8H12z"/>
+        <path d="M10 29c4 2 24 2 28 0v9c-5 3-23 3-28 0z"/>
+        <path d="M21 38v-5a3 3 0 0 1 6 0v5"/>
+        <path d="M24 5V2"/>
+      </g>
+    </symbol>
+    <!-- shopping: watch + bag -->
+    <symbol id="i-shop" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="16" cy="22" r="8"/>
+        <path d="M16 18v4l3 2M13 13l1-4h4l1 4M13 31l1 4h4l1-4"/>
+        <path d="M30 20h11l1.4 17a2 2 0 0 1-2 2.1H30.6a2 2 0 0 1-2-2.1z"/>
+        <path d="M32.5 20v-2a3 3 0 0 1 6 0v2"/>
+      </g>
+    </symbol>
+    <!-- onsen: hot spring -->
+    <symbol id="i-onsen" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 15c2-2 0-4-1-5M24 14c2-2 0-4-1-5M32 15c2-2 0-4-1-5"/>
+        <path d="M7 26h34v6a8 8 0 0 1-8 8H15a8 8 0 0 1-8-8z"/>
+        <path d="M7 26c3 2.6 3 2.6 6 0s3-2.6 6 0 3 2.6 6 0 3-2.6 6 0 3 2.6 4 1.4"/>
+      </g>
+    </symbol>
+    <!-- torii gate / gion -->
+    <symbol id="i-torii" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 13c6 3 28 3 34 0"/>
+        <path d="M8 18h32"/>
+        <path d="M12 13v27M36 13v27"/>
+        <path d="M12 22h24"/>
+        <path d="M6 11l3 2M42 11l-3 2"/>
+      </g>
+    </symbol>
+    <!-- deer (nara) -->
+    <symbol id="i-deer" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M31 16c2.4-1.2 3.6-3.4 3.4-6.4M31 16c3-.4 4.6-2 5.6-4.6M31 16c-1.6-1.8-2-4-1.4-6.6"/>
+        <path d="M17 15c-2.4-1.2-3.6-3.4-3.4-6.4M17 15c-3-.4-4.6-2-5.6-4.6"/>
+        <path d="M17 15c1.4 3 3.6 4.6 7 4.6s5.6-1.6 7-4.6"/>
+        <path d="M24 20v6m-6 0c0 5 2 8 6 8s6-3 6-8"/>
+        <path d="M18 26c-1 4-4 5-6 9m18-9c1 4 4 5 6 9"/>
+        <path d="M20 34l-1 6M28 34l1 6"/>
+      </g>
+    </symbol>
+    <!-- suitcase / transfer -->
+    <symbol id="i-case" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="16" width="30" height="24" rx="4"/>
+        <path d="M18 16v-4a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v4M20 40v3M28 40v3M24 20v16"/>
+      </g>
+    </symbol>
+    <!-- food bowl / tofu -->
+    <symbol id="i-food" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 22h34a17 17 0 0 1-17 15A17 17 0 0 1 7 22z"/>
+        <path d="M20 22a4 4 0 0 1 8 0"/>
+        <path d="M24 13c2-1.6 1-3.6 0-4.6M18 15c1.4-1.2.6-2.8-.2-3.6M30 15c1.4-1.2.6-2.8-.2-3.6"/>
+        <path d="M4 40h40"/>
+      </g>
+    </symbol>
+    <!-- sun / heat -->
+    <symbol id="i-sun" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="24" r="9"/>
+        <path d="M24 5v5M24 38v5M5 24h5M38 24h5M11 11l3 3M34 34l3 3M37 11l-3 3M14 34l-3 3"/>
+      </g>
+    </symbol>
+    <!-- train -->
+    <symbol id="i-train" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="12" y="7" width="24" height="28" rx="6"/>
+        <path d="M12 18h24M18 27h.02M30 27h.02"/>
+        <path d="M16 35l-4 6M32 35l4 6"/>
+      </g>
+    </symbol>
+    <!-- pill / health -->
+    <symbol id="i-heart" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 40S8 30 8 18a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 12-16 22-16 22z"/>
+      </g>
+    </symbol>
+    <!-- yen / money -->
+    <symbol id="i-yen" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="24" r="18"/>
+        <path d="M17 15l7 9 7-9M24 24v13M18 26h12M18 31h12"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= MASTHEAD ================= -->
+<div class="masthead">
+  <div class="wrap">
+    <div class="brand">The <em>Kansai</em> Dispatch</div>
+    <div class="meta">Travel · Late Summer 2026</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="kicker">A Family Journey · Osaka → Kyoto → Nara</div>
+    <h1>Six Gentle Days in the Old Heart of Japan</h1>
+    <p class="dek">A slow, well-fed week for two travelers over seventy-five — with a watch hunt, a bag hunt, and a long soak in Japan's oldest hot spring folded neatly in.</p>
+    <div class="byline">
+      <span>By <b>The Travel Desk</b></span><span class="dot">◆</span>
+      <span>Reporting for Ping &amp; Nick</span><span class="dot">◆</span>
+      <span>Aug 21–27, 2026</span><span class="dot">◆</span>
+      <span>6 nights · 2 hotels · 1 onsen</span>
+    </div>
+  </header>
+
+  <!-- ================= TIMELINE GRAPH ================= -->
+  <section id="glance">
+    <div class="sec-label">The Week, Charted</div>
+    <h2 class="title">One ribbon, seven days</h2>
+    <p class="lead">The whole trip on a single line. Colour tells you which city you sleep in; the icon tells you the day's one big thing. Everything is paced for the heat — mornings out, afternoons resting, evenings gentle.</p>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--osaka)"></i>Based in Osaka</span>
+      <span><i class="swatch" style="background:var(--onsen)"></i>Day trip · Arima Onsen</span>
+      <span><i class="swatch" style="background:var(--kyoto)"></i>Based in Kyoto</span>
+      <span><i class="swatch" style="background:var(--airport)"></i>By the airport</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-day">
+        <div class="tl-date">Aug 21</div><div class="tl-dow">Fri</div>
+        <div class="tl-node b-osaka c-osaka"><svg><use href="#i-plane"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Land &amp; a soft welcome dinner</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 22</div><div class="tl-dow">Sat</div>
+        <div class="tl-node b-osaka c-osaka"><svg><use href="#i-shop"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Castle, then watches &amp; vintage bags</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 23</div><div class="tl-dow">Sun</div>
+        <div class="tl-node b-onsen c-onsen"><svg><use href="#i-onsen"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-onsen">Arima</div><div class="tl-what">Hot-spring day, gold &amp; silver baths</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 24</div><div class="tl-dow">Mon</div>
+        <div class="tl-node b-kyoto c-kyoto"><svg><use href="#i-torii"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Move to Kyoto, evening in old Gion</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 25</div><div class="tl-dow">Tue</div>
+        <div class="tl-node b-kyoto c-kyoto"><svg><use href="#i-deer"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Nara — Great Buddha &amp; bowing deer</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 26</div><div class="tl-dow">Wed</div>
+        <div class="tl-node b-air c-air"><svg><use href="#i-case"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Airport</div><div class="tl-what">Slow morning, then to the terminal hotel</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 27</div><div class="tl-dow">Thu</div>
+        <div class="tl-node b-air c-air"><svg><use href="#i-plane"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Five-minute walk to the noon flight</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE INTRO ================= -->
+  <section id="story" style="padding-top:8px">
+    <p class="lead"><span class="drop">O</span><b>SAKA —</b> The trick to travelling well with elders in a Japanese summer is not to see more, but to see it kindly. Late August in Kansai is a furnace of humidity, the thermometer parked near 35°C by noon. So this itinerary bends to the heat rather than defying it: a single outing each morning while the air is still soft, a long midday retreat to a cool room, and an unhurried evening among lanterns and food stalls. Two suitcases travel ahead by courier so no one lifts a bag onto a train. Nobody is ever more than a taxi from shade.</p>
+    <p>What follows is a week built for four people with different appetites — grandparents who want beauty, warmth and a good meal; a couple chasing a fine vintage watch and a rare handbag — and it turns out those wishes fit together comfortably. The shopping hides indoors during the hottest hours. The hot spring becomes a whole restful day. And the deer of Nara, as ever, do the rest.</p>
+  </section>
+
+  <!-- ================= DAY BY DAY ================= -->
+  <section id="days">
+    <div class="sec-label">The Days, One by One</div>
+    <h2 class="title">A dispatch from each morning</h2>
+
+    <div class="days">
+
+      <div class="day">
+        <div class="art"><svg class="c-osaka"><use href="#i-plane"/></svg><div class="badge c-osaka">Fri · Aug 21</div></div>
+        <div>
+          <h3>A soft landing</h3>
+          <div class="when">Arrival · <span class="tag osaka">Osaka</span></div>
+          <p>The flight touches down at Kansai around half past six. After a long travel day, no one should be deciphering ticket machines, so a private car is waiting at arrivals to sweep the family to the Namba hotel in under an hour — bags in the boot, air-conditioning humming.</p>
+          <p>Dinner stays close and simple: a warm bowl of udon, or an <b>okonomiyaki</b> sizzling on the table griddle a few steps from the door. Then an early night. The real trip begins tomorrow.</p>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="art"><svg class="c-osaka"><use href="#i-shop"/></svg><div class="badge c-osaka">Sat · Aug 22</div></div>
+        <div>
+          <h3>The castle, then the hunt</h3>
+          <div class="when">City day · <span class="tag osaka">Osaka</span></div>
+          <p>Out early, while it is bearable: <b>Osaka Castle</b> rises from its green moat, and an elevator inside carries you to the view so the grandparents climb nothing. By late morning the sun has teeth, and that is precisely the plan — the afternoon belongs to the covered, air-conditioned arcades of <b>Shinsaibashi and Namba</b>, where the vintage bags and the watches live.</p>
+          <p>It splits beautifully. The grandparents can nurse an iced coffee while Ping and Nick comb the resale floors; everyone reconvenes as the light turns gold. Evening drifts through <b>Kuromon Market</b> and neon-lit <b>Dotonbori</b>, dinner a plate of crisp kushikatsu skewers or wagyu on the teppan.</p>
+          <div class="note"><b>See “The Hunt,” below</b> — a full guide to the watch dealers and vintage-bag boutiques, all within a short, cool walk.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="art"><svg class="c-onsen"><use href="#i-onsen"/></svg><div class="badge c-onsen">Sun · Aug 23</div></div>
+        <div>
+          <h3>A thousand-year soak</h3>
+          <div class="when">Hot-spring day · <span class="tag onsen">Arima Onsen</span></div>
+          <p>A direct express bus glides from Osaka to <b>Arima</b> in about an hour — reserved seats, no changes, the gentlest possible outing. Tucked behind the Kobe hills, Arima has soothed travelers for over a millennium, famous for two waters: the iron-rich <b>kinsen</b>, or “gold spring,” a warm reddish-brown, and the clear, carbonated <b>ginsen</b>, its “silver” counterpart.</p>
+          <p>Soak at the historic <b>Kin no Yu</b> and <b>Gin no Yu</b> bathhouses, or the roomier Taiko-no-Yu spa with its lounging areas. Between baths, wander the sloping lanes for freshly baked carbonated crackers and a slow, warm lunch. A soak, a nap, an early supper — the restorative heart of the week.</p>
+          <div class="note"><b>Prefer privacy?</b> Many Arima inns rent private baths by the hour — the same spring water, in a quiet room of your own. A dignified, easy option for older travelers.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="art"><svg class="c-kyoto"><use href="#i-torii"/></svg><div class="badge c-kyoto">Mon · Aug 24</div></div>
+        <div>
+          <h3>Into the old capital</h3>
+          <div class="when">Move day · <span class="tag kyoto">Kyoto</span></div>
+          <p>The suitcases have already gone ahead by courier, so the family travels to Kyoto with only a day bag — under an hour by train, in reserved seats. Check in, settle, and let the afternoon stay slow.</p>
+          <p>As the day cools, a first, flat, lantern-lit stroll along the <b>Shirakawa canal</b> and through the lanes of <b>Gion</b>. Dinner is the reward: silky <b>yudofu</b>, simmered tofu served as a graceful set beside a temple garden — warm, delicate, entirely cooked.</p>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="art"><svg class="c-kyoto"><use href="#i-deer"/></svg><div class="badge c-kyoto">Tue · Aug 25</div></div>
+        <div>
+          <h3>The bowing deer</h3>
+          <div class="when">Half-day trip · <span class="tag kyoto">Nara</span></div>
+          <p>A short, reserved-seat ride reaches <b>Nara</b>, and it may become the trip's fondest memory. Hundreds of tame deer roam the broad, flat park, famous for bowing their heads in exchange for a cracker — a small, delighted moment made for grandparents.</p>
+          <p>A gentle walk leads to <b>Todai-ji</b>, whose vast wooden hall shelters a bronze Buddha nearly fifteen meters tall. Lunch is a soothing iron pot of <b>kamameshi</b> rice before the easy ride home, ahead of the afternoon heat.</p>
+          <div class="note"><b>An alternative:</b> prefer bamboo to deer? Swap this day for a morning in <b>Arashiyama</b> — the shaded grove, a riverside tofu lunch, and an optional pulled rickshaw so no one tires. There is time for one, not both.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="art"><svg class="c-air"><use href="#i-case"/></svg><div class="badge c-air">Wed · Aug 26</div></div>
+        <div>
+          <h3>A slow farewell</h3>
+          <div class="when">Transfer · <span class="tag" style="color:var(--airport)">By the airport</span></div>
+          <p>No rush. A full breakfast, perhaps one last flat wander around Nijo Castle's grounds or the sweet shops of Kyoto Station, and the bags sent ahead a final time. Then, while everyone is fresh, an easy express to the <b>airport hotel</b>, connected straight to the terminal.</p>
+          <p>The evening is deliberately empty — an early dinner, unhurried packing, a good night's sleep before the flight.</p>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="art"><svg class="c-air"><use href="#i-plane"/></svg><div class="badge c-air">Thu · Aug 27</div></div>
+        <div>
+          <h3>Home to Shanghai</h3>
+          <div class="when">Departure · <span class="tag" style="color:var(--airport)">Noon flight</span></div>
+          <p>The easiest airport morning imaginable: a calm breakfast, then a five-minute indoor walk from the room to the check-in desks, aiming to be there by half past nine. No train to catch, no weather to face.</p>
+          <p style="font-style:italic;color:var(--onsen)">A gentle, well-fed, well-soaked week — and the grandparents board the plane rested rather than worn out. That was always the point.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= THE HUNT ================= -->
+  <section id="hunt">
+    <div class="sec-label">The Hunt · Osaka's Resale District</div>
+    <h2 class="title">Watches for Nick, vintage bags for the collection</h2>
+    <p class="lead">Japan is among the finest places on earth to buy pre-owned luxury — impeccably kept, meticulously authenticated, often below home prices. In Osaka it clusters in the covered arcades of Shinsaibashi and Namba, cool and dry whatever the sky is doing. Both hunts fit into one afternoon on foot.</p>
+
+    <div class="split">
+      <div class="panel">
+        <h3><span class="c-osaka" style="display:inline-flex"><svg style="width:38px;height:38px"><use href="#i-shop"/></svg></span> The vintage bags</h3>
+        <div class="sub">Hermès · Chanel · Louis Vuitton · Celine</div>
+        <div class="shop"><div class="nm">Komehyo Shinsaibashi</div><div class="ds">The flagship and best first stop — a multi-floor store with thousands of authenticated bags across every brand and price.</div><div class="loc">Shinsaibashi arcade</div></div>
+        <div class="shop"><div class="nm">Okura</div><div class="ds">High-end specialist for Hermès Kelly and Birkin, and fine jewelry — the place for a grail piece.</div><div class="loc">Shinsaibashi</div></div>
+        <div class="shop"><div class="nm">Brand Off</div><div class="ds">Deep, reliable selection of Louis Vuitton and Hermès with clear condition grading.</div><div class="loc">Shinsaibashi</div></div>
+        <div class="shop"><div class="nm">Amico Vintage</div><div class="ds">Boutique for European houses — vintage Celine, Saint Laurent, classic Chanel flaps.</div><div class="loc">Higashi-Shinsaibashi</div></div>
+        <div class="shop"><div class="nm">Brand Jiku · Vintage Qoo</div><div class="ds">Collectors' favorites for rarer authenticated Chanel, older LV canvas and Fendi.</div><div class="loc">Shinsaibashi</div></div>
+      </div>
+
+      <div class="panel">
+        <h3><span class="c-kyoto" style="display:inline-flex"><svg style="width:38px;height:38px"><use href="#i-shop"/></svg></span> The watches</h3>
+        <div class="sub">Rolex · Omega · Patek · Seiko · the grails</div>
+        <div class="shop"><div class="nm">OKURA Osaka Main Store</div><div class="ds">Around 2,000 watches with in-house appraisers and watchmakers — the serious first stop for rare and limited models.</div><div class="loc">3 min from Namba Stn</div></div>
+        <div class="shop"><div class="nm">Watchnian</div><div class="ds">Specialists in Rolex, Patek Philippe and Audemars Piguet (and designer leather too).</div><div class="loc">Central Shinsaibashi</div></div>
+        <div class="shop"><div class="nm">Kamekichi</div><div class="ds">Twenty-five years in the trade, brisk turnover, keen prices, English- and Chinese-speaking staff.</div><div class="loc">1 min from Shinsaibashi Stn</div></div>
+        <div class="shop"><div class="nm">Best Vintage · Grand Front</div><div class="ds">Roughly 500 watches from an authorized dealer group, sorted by type — chronographs, divers, military.</div><div class="loc">Umeda, at Osaka Stn</div></div>
+        <div class="shop"><div class="nm">Brand Off</div><div class="ds">Broad luxury floor where watches sit beside the bags — handy for a joint browse.</div><div class="loc">Shinsaibashi</div></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px;border-color:var(--osaka)">
+      <b>A buyer's field note.</b> &nbsp;Carry passports for tax-free purchases (usually over ¥5,000); buy from these established, in-house-authenticating names and keep every receipt and guarantee card for the trip home. Prices are fixed, not haggled — and while cards are taken everywhere, a rare find may still prefer cash.
+    </div>
+  </section>
+
+  <!-- ================= DINING ================= -->
+  <section id="table">
+    <div class="sec-label">At the Table · No Raw Fish, All Warmth</div>
+    <h2 class="title">A cooked-food feast</h2>
+    <p class="lead">Happily, Kansai's signature dishes are mostly cooked, warm and easy to love. A shortlist by place, chosen for gentler tastes — not a slice of sashimi in sight.</p>
+
+    <div class="chips">
+      <div class="chip"><div class="c-city c-osaka">Osaka</div><div class="c-name">Okonomiyaki</div><div class="c-desc">Hearty savory pancake grilled at the table. Try Mizuno or Chibo.</div></div>
+      <div class="chip"><div class="c-city c-osaka">Osaka</div><div class="c-name">Kushikatsu</div><div class="c-desc">Crisp fried skewers; the Shinsekai classic Daruma.</div></div>
+      <div class="chip"><div class="c-city c-osaka">Osaka</div><div class="c-name">Teppanyaki wagyu</div><div class="c-desc">Kobe or Matsusaka beef seared before you near Namba.</div></div>
+      <div class="chip"><div class="c-city c-onsen">Arima</div><div class="c-name">Kaiseki lunch</div><div class="c-desc">A gentle multi-dish set after the bath — ask for no raw fish.</div></div>
+      <div class="chip"><div class="c-city c-kyoto">Kyoto</div><div class="c-name">Yudofu</div><div class="c-desc">Simmered tofu as a graceful set; Nanzenji Junsei by its garden.</div></div>
+      <div class="chip"><div class="c-city c-kyoto">Kyoto</div><div class="c-name">Unagi at Kaneyo</div><div class="c-desc">A century-old grilled-eel house, tender and beloved.</div></div>
+      <div class="chip"><div class="c-city c-kyoto">Nara</div><div class="c-name">Kamameshi</div><div class="c-desc">Rice and vegetables steamed in a small iron pot, piping hot.</div></div>
+      <div class="chip"><div class="c-city c-osaka">Everywhere</div><div class="c-name">Convenience-store tea</div><div class="c-desc">Chilled and cheap on every corner — the summer lifesaver.</div></div>
+    </div>
+
+    <div class="phrase">
+      <div class="jp">生の魚は除いてください</div>
+      <div class="en"><b>One phrase worth saving.</b><br><i>nama no sakana wa nozoite kudasai</i> — “please leave out the raw fish.” Show it and any kitchen will happily adapt a set.</div>
+    </div>
+  </section>
+
+  <!-- ================= KNOW BEFORE ================= -->
+  <section id="know">
+    <div class="sec-label">Know Before You Go</div>
+    <h2 class="title">The comfort brief</h2>
+    <div class="kbg">
+      <div class="kb"><h4><span class="c-osaka" style="display:inline-flex"><svg><use href="#i-sun"/></svg></span>Beating the heat</h4>
+        <ul><li>Out early, rest at midday, gentle evenings.</li><li>Water everywhere; hats, folding fans, a cooling towel.</li><li>Gel patches and battery fans in every drugstore.</li><li>When in doubt, take the taxi.</li></ul></div>
+      <div class="kb"><h4><span class="c-onsen" style="display:inline-flex"><svg><use href="#i-onsen"/></svg></span>At the onsen</h4>
+        <ul><li>Rinse and wash before entering; no swimsuits.</li><li>Tattoos may be restricted — a private bath solves it.</li><li>Short soaks, water after, never on a full stomach.</li></ul></div>
+      <div class="kb"><h4><span class="c-kyoto" style="display:inline-flex"><svg><use href="#i-train"/></svg></span>Moving about</h4>
+        <ul><li>Courier the suitcases hotel-to-hotel (¥2,000–2,500).</li><li>Reserve every train and the Arima bus seat.</li><li>An ICOCA tap-card each saves fumbling for tickets.</li></ul></div>
+      <div class="kb"><h4><span class="c-osaka" style="display:inline-flex"><svg><use href="#i-heart"/></svg></span>Health &amp; ease</h4>
+        <ul><li>A week's medication, plus spares, in original boxes.</li><li>One seated rest every 30–45 minutes on foot.</li><li>Ask the airline for free wheelchair-assist if useful.</li></ul></div>
+      <div class="kb"><h4><span class="c-gold" style="display:inline-flex;color:var(--gold)"><svg><use href="#i-yen"/></svg></span>Book ahead</h4>
+        <ul><li>Arrival car (Aug 21) &amp; airport hotel (Aug 26).</li><li>The three hotels; the Kyoto splurge fills fast.</li><li>Arima bus seats; a wagyu and a tofu dinner.</li></ul></div>
+      <div class="kb"><h4><span class="c-kyoto" style="display:inline-flex"><svg><use href="#i-case"/></svg></span>Where you sleep</h4>
+        <ul><li><b>Osaka:</b> Swissôtel Nankai, atop Namba Station.</li><li><b>Kyoto:</b> Hotel The Mitsui — the splurge, with its own spring.</li><li><b>Airport:</b> Hotel Nikko, joined to the terminal.</li></ul></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>The Kansai Dispatch · A private itinerary for Ping, Nick &amp; family · Osaka · Kyoto · Nara · Arima Onsen · August 21–27, 2026</div>
+    <div style="margin-top:8px" class="jp">いい旅を　·　一路平安　— safe travels</div>
+  </div>
+</footer>
+
+</body>
+</html>
