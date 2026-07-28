@@ -58,12 +58,13 @@
   .legend span{display:inline-flex;align-items:center;gap:7px}
   .swatch{width:13px;height:13px;border-radius:4px;display:inline-block}
 
-  .timeline{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:0;
+  .timeline{position:relative;display:grid;grid-template-columns:repeat(9,1fr);gap:0;
     background:var(--card);border:1px solid var(--line);border-radius:16px;
-    padding:26px 12px 20px;box-shadow:var(--shadow);overflow:hidden}
-  .timeline::before{content:"";position:absolute;left:8%;right:8%;top:83px;height:3px;
-    background:linear-gradient(90deg,var(--osaka) 0 42%,var(--onsen) 42% 43%,
-      var(--kyoto) 43% 72%,var(--airport) 72% 100%);border-radius:3px;opacity:.35}
+    padding:26px 10px 20px;box-shadow:var(--shadow);overflow:hidden}
+  .timeline::before{content:"";position:absolute;left:6%;right:6%;top:83px;height:3px;
+    background:linear-gradient(90deg,var(--osaka) 0 26%,var(--onsen) 28% 31%,
+      var(--kyoto) 33% 55%,var(--airport) 57% 63%,var(--koya) 66% 85%,var(--airport) 88% 100%);
+    border-radius:3px;opacity:.35}
   .tl-day{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
     padding:0 6px;z-index:1}
   .tl-date{font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--muted);font-weight:700}
@@ -78,6 +79,13 @@
   .tl-hotel{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:6px;line-height:1.25;
     max-width:16ch;display:flex;align-items:center;gap:4px;justify-content:center}
   .tl-hotel svg{width:12px;height:12px;flex:none}
+  .tl-bag{font-family:var(--sans);font-size:10px;font-style:italic;color:#9a9082;margin-top:5px;
+    line-height:1.2;max-width:16ch;display:flex;align-items:center;gap:4px;justify-content:center}
+  .tl-bag svg{width:11px;height:11px;flex:none}
+  .lug-note{font-family:var(--sans);font-size:13.5px;color:var(--ink2);background:var(--paper2);
+    border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+  .lug-note svg{width:20px;height:20px;flex:none;color:var(--osaka);margin-top:1px}
+  .lug-note b{color:var(--ink)}
   .stay{display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;padding:5px 13px 5px 10px;
     border-radius:20px;background:var(--paper2);font-family:var(--sans);font-size:13.5px;color:var(--ink);line-height:1.3}
   .stay svg{width:17px;height:17px;flex:none;color:var(--muted)}
@@ -163,6 +171,7 @@
     .tl-meta{display:flex;flex-direction:column}
     .tl-what{max-width:none;font-size:15px}
     .tl-hotel{max-width:none;justify-content:flex-start}
+    .tl-bag{max-width:none;justify-content:flex-start}
     .tl-city{margin:2px 0}
     .day{grid-template-columns:1fr;gap:10px}
     .day .art{display:flex;align-items:center;gap:14px}
@@ -364,60 +373,72 @@
     <div class="byline">
       <span>By <b>The Travel Desk</b></span><span class="dot">◆</span>
       <span>Reporting for Ping &amp; Nick</span><span class="dot">◆</span>
-      <span>Aug 21–27, 2026</span><span class="dot">◆</span>
+      <span>Aug 21–29, 2026</span><span class="dot">◆</span>
       <span>6 nights · 2 hotels · 1 onsen</span>
     </div>
   </header>
 
   <!-- ================= TIMELINE GRAPH ================= -->
   <section id="glance">
-    <div class="sec-label">The Week, Charted</div>
-    <h2 class="title">One ribbon, seven days</h2>
-    <p class="lead">The whole trip on a single line. Colour tells you which city you sleep in; the icon tells you the day's one big thing. Everything is paced for the heat — mornings out, afternoons resting, evenings gentle.</p>
+    <div class="sec-label">The Journey, Charted</div>
+    <h2 class="title">One ribbon, the whole trip</h2>
+    <p class="lead">The entire journey on a single line — the family's week together, then the two extra days Nick &amp; Ping carry on for. Colour tells you where you sleep, the icon is the day's one big thing, and the small italic line under each stop tells you what happens with your bags. Everything is paced for the heat — mornings out, afternoons resting, evenings gentle.</p>
     <div class="legend">
       <span><i class="swatch" style="background:var(--osaka)"></i>Based in Osaka</span>
       <span><i class="swatch" style="background:var(--onsen)"></i>Day trip · Arima Onsen</span>
       <span><i class="swatch" style="background:var(--kyoto)"></i>Based in Kyoto</span>
       <span><i class="swatch" style="background:var(--airport)"></i>By the airport</span>
+      <span><i class="swatch" style="background:var(--koya)"></i>Koyasan · Nick &amp; Ping</span>
     </div>
 
     <div class="timeline">
       <div class="tl-day">
         <div class="tl-date">Aug 21</div><div class="tl-dow">Fri</div>
         <div class="tl-node b-osaka c-osaka"><svg><use href="#i-plane"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Land &amp; a soft welcome dinner</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
+        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Land &amp; a soft welcome dinner</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Bags ride with you</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 22</div><div class="tl-dow">Sat</div>
         <div class="tl-node b-osaka c-osaka"><svg><use href="#i-shop"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Castle, then watches &amp; vintage bags</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
+        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Castle, then watches &amp; vintage bags</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Bags stay at the hotel</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 23</div><div class="tl-dow">Sun</div>
         <div class="tl-node b-onsen c-onsen"><svg><use href="#i-onsen"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-onsen">Arima</div><div class="tl-what">Hot-spring day, gold &amp; silver baths</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
+        <div class="tl-meta"><div class="tl-city bg-onsen">Arima</div><div class="tl-what">Hot-spring day, gold &amp; silver baths</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Forward bags to Kyoto</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 24</div><div class="tl-dow">Mon</div>
         <div class="tl-node b-kyoto c-kyoto"><svg><use href="#i-torii"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Move to Kyoto, evening in old Gion</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>The Thousand Kyoto</div></div>
+        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Move to Kyoto, evening in old Gion</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>The Thousand Kyoto</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Bags arrive in Kyoto</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 25</div><div class="tl-dow">Tue</div>
         <div class="tl-node b-kyoto c-kyoto"><svg><use href="#i-deer"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Nara — Great Buddha &amp; bowing deer</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>The Thousand Kyoto</div></div>
+        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Nara — Great Buddha &amp; bowing deer</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>The Thousand Kyoto</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Bags stay at the hotel</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 26</div><div class="tl-dow">Wed</div>
         <div class="tl-node b-air c-air"><svg><use href="#i-case"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-air">Airport</div><div class="tl-what">Slow morning, then to the terminal hotel</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Hotel Nikko (KIX)</div></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Airport</div><div class="tl-what">Slow morning, then to the terminal hotel</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Hotel Nikko (KIX)</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Carry bags to the airport</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 27</div><div class="tl-dow">Thu</div>
+        <div class="tl-node b-koya c-koya"><svg><use href="#i-mountain"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Parents fly home; you two to Koyasan</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Koyasan temple stay</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Forward bags to Osaka</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 28</div><div class="tl-dow">Fri</div>
+        <div class="tl-node b-koya c-koya"><svg><use href="#i-lantern"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Dawn Okunoin, then back to Osaka</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Bags waiting in Osaka</div></div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">Aug 29</div><div class="tl-dow">Sat</div>
         <div class="tl-node b-air c-air"><svg><use href="#i-plane"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Five-minute walk to the noon flight</div><div class="tl-hotel"><svg><use href="#i-plane"/></svg>Flight home</div></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Slow Osaka morning, 4:55 pm flight</div><div class="tl-hotel"><svg><use href="#i-plane"/></svg>Flight home</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Check your bags in</div></div>
       </div>
     </div>
+    <div class="lug-note"><svg><use href="#i-case"/></svg><span><b>About the bags.</b> Within the Kansai region, any hotel front desk will forward your suitcases to the next hotel overnight — the takkyubin courier service, about ¥2,000 a bag — so you travel light on moving days. The little line under each stop shows what happens with your luggage; “forward” means hand it in the evening before, and it's waiting when you arrive.</span></div>
   </section>
 
   <!-- ================= FEATURE INTRO ================= -->
@@ -522,31 +543,9 @@
     <div class="sec-label">After the Goodbyes · Just Nick &amp; Ping</div>
     <h2 class="title">Two more days, and a sacred mountain</h2>
     <p class="lead">With the grandparents safely homeward, the two of you have Osaka to yourselves until Saturday's late-afternoon flight. Nick wanted real, breathe-it-in nature — so the centrepiece is an overnight on <b>Mount Koya (Koyasan)</b>, a twelve-hundred-year-old monastic sanctuary wrapped in towering cedar forest. You sleep inside a working temple, wake for dawn prayers, and walk the mist-hung Okunoin at its most beautiful hour. Putting the mountain in the middle also lands the timing kindly: an easy Osaka morning is all that stands between you and the flight home.</p>
-    <div class="legend">
-      <span><i class="swatch" style="background:var(--koya)"></i>On Mount Koya</span>
-      <span><i class="swatch" style="background:var(--osaka)"></i>Back in Osaka</span>
-      <span><i class="swatch" style="background:var(--airport)"></i>Fly home</span>
-    </div>
+    <p style="font-family:var(--sans);font-size:15px;color:var(--muted);margin-top:-4px">These three days are the green stretch on the map above — here they are in full.</p>
 
-    <div class="timeline mini">
-      <div class="tl-day">
-        <div class="tl-date">Aug 27</div><div class="tl-dow">Thu</div>
-        <div class="tl-node b-koya c-koya"><svg><use href="#i-mountain"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">See the family off, then up the mountain</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Koyasan temple stay</div></div>
-      </div>
-      <div class="tl-day">
-        <div class="tl-date">Aug 28</div><div class="tl-dow">Fri</div>
-        <div class="tl-node b-koya c-koya"><svg><use href="#i-lantern"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Dawn prayers &amp; Okunoin, then back to Osaka</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
-      </div>
-      <div class="tl-day">
-        <div class="tl-date">Aug 29</div><div class="tl-dow">Sat</div>
-        <div class="tl-node b-air c-air"><svg><use href="#i-plane"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Slow Osaka morning, 4:55 pm flight</div><div class="tl-hotel"><svg><use href="#i-plane"/></svg>Flight home</div></div>
-      </div>
-    </div>
-
-    <div class="days" style="margin-top:26px">
+    <div class="days" style="margin-top:22px">
 
       <div class="day">
         <div class="art"><svg class="c-koya"><use href="#i-mountain"/></svg><div class="badge c-koya">Thu · Aug 27</div></div>
