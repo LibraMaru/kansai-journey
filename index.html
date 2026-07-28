@@ -90,6 +90,8 @@
     border-radius:20px;background:var(--paper2);font-family:var(--sans);font-size:13.5px;color:var(--ink);line-height:1.3}
   .stay svg{width:17px;height:17px;flex:none;color:var(--muted)}
   .stay .lbl{color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-size:10.5px;font-weight:700}
+  .stay.trip{background:#e6eef3}
+  .stay.trip svg{color:var(--kyoto)}
   .c-osaka{color:var(--osaka)} .b-osaka{border-color:var(--osaka)} .bg-osaka{background:#f7e3de;color:var(--osaka)}
   .c-kyoto{color:var(--kyoto)} .b-kyoto{border-color:var(--kyoto)} .bg-kyoto{background:#dde7ef;color:var(--kyoto)}
   .c-onsen{color:var(--onsen)} .b-onsen{border-color:var(--onsen)} .bg-onsen{background:#d7ebe8;color:var(--onsen)}
@@ -425,17 +427,17 @@
       <div class="tl-day">
         <div class="tl-date">Aug 27</div><div class="tl-dow">Thu</div>
         <div class="tl-node b-koya c-koya"><svg><use href="#i-mountain"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Parents fly home; you two to Koyasan</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Koyasan temple stay</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Forward bags to Osaka</div></div>
+        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Parents fly home; you two to Koyasan</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Koyasan temple stay</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Store bags at the airport</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 28</div><div class="tl-dow">Fri</div>
         <div class="tl-node b-koya c-koya"><svg><use href="#i-lantern"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Dawn Okunoin, then back to Osaka</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Bags waiting in Osaka</div></div>
+        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Okunoin at dawn, a full day on the mountain</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Koyasan temple stay</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Bags in airport storage</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 29</div><div class="tl-dow">Sat</div>
         <div class="tl-node b-air c-air"><svg><use href="#i-plane"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Slow Osaka morning, 4:55 pm flight</div><div class="tl-hotel"><svg><use href="#i-plane"/></svg>Flight home</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Check your bags in</div></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Down the mountain to the 4:55 pm flight</div><div class="tl-hotel"><svg><use href="#i-plane"/></svg>Flight home</div><div class="tl-bag"><svg><use href="#i-case"/></svg>Collect bags, then check in</div></div>
       </div>
     </div>
     <div class="lug-note"><svg><use href="#i-case"/></svg><span><b>About the bags.</b> Within the Kansai region, any hotel front desk will forward your suitcases to the next hotel overnight — the takkyubin courier service, about ¥2,000 a bag — so you travel light on moving days. The little line under each stop shows what happens with your luggage; “forward” means hand it in the evening before, and it's waiting when you arrive.</span></div>
@@ -494,6 +496,7 @@
         <div>
           <h3>Into the old capital</h3>
           <div class="when">Move day · <span class="tag kyoto">Kyoto</span></div>
+          <div class="stay trip"><svg><use href="#i-train"/></svg><span><span class="lbl">Getting there</span> Osaka → Kyoto: Shinkansen 14 min from Shin-Osaka (or JR ~30 min), or a door-to-door car ~1 hr</span></div>
           <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> The Thousand Kyoto</span></div>
           <p>The suitcases have already gone ahead by courier, so the family travels to Kyoto with only a day bag — under an hour by train, in reserved seats. Check in, settle, and let the afternoon stay slow.</p>
           <p>As the day cools, a first, flat, lantern-lit stroll along the <b>Shirakawa canal</b> and through the lanes of <b>Gion</b>. Dinner is the reward: silky <b>yudofu</b>, simmered tofu served as a graceful set beside a temple garden — warm, delicate, entirely cooked.</p>
@@ -517,6 +520,7 @@
         <div>
           <h3>A slow farewell</h3>
           <div class="when">Transfer · <span class="tag" style="color:var(--airport)">By the airport</span></div>
+          <div class="stay trip"><svg><use href="#i-train"/></svg><span><span class="lbl">Getting there</span> Kyoto → Kansai Airport: reserved JR Haruka ~80 min, or a door-to-door car ~1 hr 45</span></div>
           <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Hotel Nikko Kansai Airport</span></div>
           <p>No suitcases today. Because you sent the big bags ahead from Kyoto yesterday, they're already waiting at <b>Hotel Nikko</b> — so you travel with just a small overnight bag and nothing to drag. Enjoy a slow, hands-free morning: <b>The Thousand Kyoto</b> sits right at Kyoto Station, so linger over its food halls and souvenir shops, or take a quick taxi to Nijo Castle and back.</p>
           <p>Then an easy run to the airport — the reserved <b>JR Haruka</b> is about 80 minutes from Kyoto Station, or a pre-booked car if you'd rather go fully door-to-door — and you reach Hotel Nikko, joined to the terminal by a covered walkway, to find your luggage already in the room.</p>
@@ -542,7 +546,7 @@
   <section id="extension">
     <div class="sec-label">After the Goodbyes · Just Nick &amp; Ping</div>
     <h2 class="title">Two more days, and a sacred mountain</h2>
-    <p class="lead">With the grandparents safely homeward, the two of you have Osaka to yourselves until Saturday's late-afternoon flight. Nick wanted real, breathe-it-in nature — so the centrepiece is an overnight on <b>Mount Koya (Koyasan)</b>, a twelve-hundred-year-old monastic sanctuary wrapped in towering cedar forest. You sleep inside a working temple, wake for dawn prayers, and walk the mist-hung Okunoin at its most beautiful hour. Putting the mountain in the middle also lands the timing kindly: an easy Osaka morning is all that stands between you and the flight home.</p>
+    <p class="lead">With the grandparents safely homeward, the two of you have two unhurried days before Saturday's late-afternoon flight — and you're spending them up a mountain. Nick wanted real, breathe-it-in nature, so you settle in for <b>two nights on Mount Koya (Koyasan)</b>, a twelve-hundred-year-old monastic sanctuary wrapped in towering cedar forest: sleeping inside a working temple, waking for dawn prayers, and walking the mist-hung Okunoin at its most beautiful hour. On Saturday you come straight down to the airport — no doubling back to the city.</p>
     <p style="font-family:var(--sans);font-size:15px;color:var(--muted);margin-top:-4px">These three days are the green stretch on the map above — here they are in full.</p>
 
     <div class="days" style="margin-top:22px">
@@ -552,11 +556,12 @@
         <div>
           <h3>Up the sacred mountain</h3>
           <div class="when">Ascent · <span class="tag" style="color:var(--koya)">Koyasan</span></div>
+          <div class="stay trip"><svg><use href="#i-train"/></svg><span><span class="lbl">Getting there</span> Kansai Airport → Koyasan: Nankai Koya Line + cable car, about 3 hours, one change</span></div>
           <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Koyasan temple lodging (e.g. Eko-in)</span></div>
-          <p>See your parents through to their noon flight at Kansai, then hand your big suitcases to the courier desk to travel ahead to the Osaka hotel — you'll go up the mountain with just an overnight bag.</p>
+          <p>See your parents through to their noon flight at Kansai, then leave your big suitcases in the airport's luggage storage — you'll collect them here on the way out — and go up the mountain with just an overnight bag.</p>
           <p>The climb is half the pleasure. The <b>Nankai Koya Line</b> rattles south into deepening green, then a little funicular cable car hauls you up to 800 metres. Settle into your temple lodging and wander the <b>Danjo Garan</b>, where the vermilion Konpon Daito pagoda glows among the cedars.</p>
           <p>Dinner is <b>shojin ryori</b>, the monks' refined vegetarian cooking — tofu, sesame, mountain vegetables — followed by a hot bath and an early, genuinely silent night.</p>
-          <div class="note"><b>The easy ticket.</b> The Koyasan World Heritage pass bundles the round-trip train and the local mountain bus at a discount — buy it at the Nankai counter in Namba.</div>
+          <div class="note"><b>The easy ticket.</b> Buy your Nankai tickets at the airport or Namba; the Koyasan World Heritage pass discounts the ride up and the local mountain bus.</div>
         </div>
       </div>
 
@@ -564,29 +569,29 @@
         <div class="art"><svg class="c-koya"><use href="#i-lantern"/></svg><div class="badge c-koya">Fri · Aug 28</div></div>
         <div>
           <h3>Dawn in the cedar forest</h3>
-          <div class="when">The morning you came for · <span class="tag" style="color:var(--koya)">Koyasan → Osaka</span></div>
-          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Swissôtel Nankai Osaka</span></div>
+          <div class="when">A full day on the mountain · <span class="tag" style="color:var(--koya)">Koyasan</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Koyasan temple lodging · second night</span></div>
           <p>Rise for the <b>morning prayer service</b> and, at temples such as Eko-in, the <b>goma fire ritual</b> — chanting, incense and flame in the half-light. Quietly unforgettable.</p>
           <p>Then walk <b>Okunoin</b> while the light is still low and the forest breathes mist. A two-kilometre stone path winds beneath thousand-year-old cryptomeria, past a hundred thousand moss-cloaked lanterns and tombs, to the mausoleum of Kobo Daishi. This is the beautiful nature Nick came for — and at this hour it is nearly yours alone.</p>
-          <p>After a temple breakfast, an unhurried descent brings you back to Osaka, where your bags are already waiting. Tonight, celebrate: <b>Kobe wagyu</b> seared on the teppan.</p>
+          <p>The rest of the day is yours to go slow: the head temple <b>Kongobu-ji</b> and its raked-stone garden, the great <b>Daimon</b> gate, the Buddhist treasures of the Reihokan museum, or simply the forest quiet. A second <b>shojin ryori</b> dinner and another still night close the day.</p>
         </div>
       </div>
 
       <div class="day">
         <div class="art"><svg class="c-air"><use href="#i-plane"/></svg><div class="badge c-air">Sat · Aug 29</div></div>
         <div>
-          <h3>One last Osaka morning</h3>
-          <div class="when">Departure · <span class="tag" style="color:var(--airport)">4:55 pm flight</span></div>
-          <p>No rush. A relaxed breakfast and a final wander — the greenery of Osaka Castle Park or the river islands of Nakanoshima, a last coffee, any souvenirs you missed.</p>
-          <p>Aim to leave the city by about <b>2 pm</b>; the airport train from Namba runs roughly 50 minutes, putting you at Kansai in comfortable time for the 4:55 pm departure.</p>
-          <div class="note"><b>One more waterfall?</b> If you want a last hit of nature and an early start, <b>Minoh Park's</b> forest trail to its 33-metre falls is only 30 minutes from Umeda — doable before lunch, then straight to the airport.</div>
+          <h3>Down the mountain, and home</h3>
+          <div class="when">Descent &amp; departure · <span class="tag" style="color:var(--airport)">4:55 pm flight</span></div>
+          <div class="stay trip"><svg><use href="#i-train"/></svg><span><span class="lbl">Getting there</span> Koyasan → Kansai Airport: cable car + Nankai, about 3 hours, one change</span></div>
+          <p>A last temple breakfast — and, if you like, one more morning prayer — then an unhurried descent: the cable car down, and the <b>Nankai</b> line the rest of the way to Kansai Airport, roughly three hours with a single change.</p>
+          <p>Collect the suitcases you left in airport storage, and you're checking in with time to spare for the <b>4:55 pm</b> flight. Aim to leave Koyasan by around <b>11:30 am</b> for a comfortable buffer.</p>
         </div>
       </div>
 
     </div>
 
     <div class="note" style="margin-top:20px;border-color:var(--koya)">
-      <b style="color:var(--koya)">Booking the temple stay.</b> &nbsp;Reserve a <i>shukubo</i> well ahead — Eko-in, Sekishoin and Fudo-in are all used to English-speaking guests and offer the morning fire ritual. Expect a futon on tatami, shared bathing, and dinner around 5:30 pm; meals are vegetarian throughout, so mention any needs when you book.
+      <b style="color:var(--koya)">Booking the temple stay.</b> &nbsp;Reserve <b>two nights</b> at a <i>shukubo</i> well ahead — Eko-in, Sekishoin and Fudo-in are all used to English-speaking guests and offer the morning fire ritual. Expect a futon on tatami, shared bathing, and dinner around 5:30 pm; meals are vegetarian throughout, so mention any needs when you book. Leave your big suitcases in luggage storage at Kansai Airport for the two nights and travel up with just an overnight bag.
     </div>
   </section>
 
