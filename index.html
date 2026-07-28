@@ -75,6 +75,13 @@
   .tl-city{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
     font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:8px;white-space:nowrap}
   .tl-what{font-size:14.5px;line-height:1.3;color:var(--ink2);max-width:15ch}
+  .tl-hotel{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:6px;line-height:1.25;
+    max-width:16ch;display:flex;align-items:center;gap:4px;justify-content:center}
+  .tl-hotel svg{width:12px;height:12px;flex:none}
+  .stay{display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;padding:5px 13px 5px 10px;
+    border-radius:20px;background:var(--paper2);font-family:var(--sans);font-size:13.5px;color:var(--ink);line-height:1.3}
+  .stay svg{width:17px;height:17px;flex:none;color:var(--muted)}
+  .stay .lbl{color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-size:10.5px;font-weight:700}
   .c-osaka{color:var(--osaka)} .b-osaka{border-color:var(--osaka)} .bg-osaka{background:#f7e3de;color:var(--osaka)}
   .c-kyoto{color:var(--kyoto)} .b-kyoto{border-color:var(--kyoto)} .bg-kyoto{background:#dde7ef;color:var(--kyoto)}
   .c-onsen{color:var(--onsen)} .b-onsen{border-color:var(--onsen)} .bg-onsen{background:#d7ebe8;color:var(--onsen)}
@@ -155,6 +162,7 @@
     .tl-dow{margin-bottom:0}
     .tl-meta{display:flex;flex-direction:column}
     .tl-what{max-width:none;font-size:15px}
+    .tl-hotel{max-width:none;justify-content:flex-start}
     .tl-city{margin:2px 0}
     .day{grid-template-columns:1fr;gap:10px}
     .day .art{display:flex;align-items:center;gap:14px}
@@ -327,6 +335,14 @@
         <path d="M24 14c-2-6-10-5-7 0M24 14c2-6 10-5 7 0"/>
       </g>
     </symbol>
+    <!-- bed / stay -->
+    <symbol id="i-bed" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 13v22M6 35h36M42 35V24a5 5 0 0 0-5-5H20v9"/>
+        <path d="M6 28h14"/>
+        <circle cx="13" cy="24.5" r="3.2"/>
+      </g>
+    </symbol>
   </defs>
 </svg>
 
@@ -369,37 +385,37 @@
       <div class="tl-day">
         <div class="tl-date">Aug 21</div><div class="tl-dow">Fri</div>
         <div class="tl-node b-osaka c-osaka"><svg><use href="#i-plane"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Land &amp; a soft welcome dinner</div></div>
+        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Land &amp; a soft welcome dinner</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 22</div><div class="tl-dow">Sat</div>
         <div class="tl-node b-osaka c-osaka"><svg><use href="#i-shop"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Castle, then watches &amp; vintage bags</div></div>
+        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Castle, then watches &amp; vintage bags</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 23</div><div class="tl-dow">Sun</div>
         <div class="tl-node b-onsen c-onsen"><svg><use href="#i-onsen"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-onsen">Arima</div><div class="tl-what">Hot-spring day, gold &amp; silver baths</div></div>
+        <div class="tl-meta"><div class="tl-city bg-onsen">Arima</div><div class="tl-what">Hot-spring day, gold &amp; silver baths</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 24</div><div class="tl-dow">Mon</div>
         <div class="tl-node b-kyoto c-kyoto"><svg><use href="#i-torii"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Move to Kyoto, evening in old Gion</div></div>
+        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Move to Kyoto, evening in old Gion</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Hotel The Mitsui</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 25</div><div class="tl-dow">Tue</div>
         <div class="tl-node b-kyoto c-kyoto"><svg><use href="#i-deer"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Nara — Great Buddha &amp; bowing deer</div></div>
+        <div class="tl-meta"><div class="tl-city bg-kyoto">Kyoto</div><div class="tl-what">Nara — Great Buddha &amp; bowing deer</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Hotel The Mitsui</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 26</div><div class="tl-dow">Wed</div>
         <div class="tl-node b-air c-air"><svg><use href="#i-case"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-air">Airport</div><div class="tl-what">Slow morning, then to the terminal hotel</div></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Airport</div><div class="tl-what">Slow morning, then to the terminal hotel</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Hotel Nikko (KIX)</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 27</div><div class="tl-dow">Thu</div>
         <div class="tl-node b-air c-air"><svg><use href="#i-plane"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Five-minute walk to the noon flight</div></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Five-minute walk to the noon flight</div><div class="tl-hotel"><svg><use href="#i-plane"/></svg>Flight home</div></div>
       </div>
     </div>
   </section>
@@ -422,6 +438,7 @@
         <div>
           <h3>A soft landing</h3>
           <div class="when">Arrival · <span class="tag osaka">Osaka</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Swissôtel Nankai Osaka</span></div>
           <p>The flight touches down at Kansai around half past six. After a long travel day, no one should be deciphering ticket machines, so a private car is waiting at arrivals to sweep the family to the Namba hotel in under an hour — bags in the boot, air-conditioning humming.</p>
           <p>Dinner stays close and simple: a warm bowl of udon, or an <b>okonomiyaki</b> sizzling on the table griddle a few steps from the door. Then an early night. The real trip begins tomorrow.</p>
         </div>
@@ -432,6 +449,7 @@
         <div>
           <h3>The castle, then the hunt</h3>
           <div class="when">City day · <span class="tag osaka">Osaka</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Swissôtel Nankai Osaka</span></div>
           <p>Out early, while it is bearable: <b>Osaka Castle</b> rises from its green moat, and an elevator inside carries you to the view so the grandparents climb nothing. By late morning the sun has teeth, and that is precisely the plan — the afternoon belongs to the covered, air-conditioned arcades of <b>Shinsaibashi and Namba</b>, where the vintage bags and the watches live.</p>
           <p>It splits beautifully. The grandparents can nurse an iced coffee while Ping and Nick comb the resale floors; everyone reconvenes as the light turns gold. Evening drifts through <b>Kuromon Market</b> and neon-lit <b>Dotonbori</b>, dinner a plate of crisp kushikatsu skewers or wagyu on the teppan.</p>
           <div class="note"><b>See “The Hunt,” below</b> — a full guide to the watch dealers and vintage-bag boutiques, all within a short, cool walk.</div>
@@ -443,6 +461,7 @@
         <div>
           <h3>A thousand-year soak</h3>
           <div class="when">Hot-spring day · <span class="tag onsen">Arima Onsen</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Swissôtel Nankai Osaka</span></div>
           <p>A direct express bus glides from Osaka to <b>Arima</b> in about an hour — reserved seats, no changes, the gentlest possible outing. Tucked behind the Kobe hills, Arima has soothed travelers for over a millennium, famous for two waters: the iron-rich <b>kinsen</b>, or “gold spring,” a warm reddish-brown, and the clear, carbonated <b>ginsen</b>, its “silver” counterpart.</p>
           <p>Soak at the historic <b>Kin no Yu</b> and <b>Gin no Yu</b> bathhouses, or the roomier Taiko-no-Yu spa with its lounging areas. Between baths, wander the sloping lanes for freshly baked carbonated crackers and a slow, warm lunch. A soak, a nap, an early supper — the restorative heart of the week.</p>
           <div class="note"><b>Prefer privacy?</b> Many Arima inns rent private baths by the hour — the same spring water, in a quiet room of your own. A dignified, easy option for older travelers.</div>
@@ -454,6 +473,7 @@
         <div>
           <h3>Into the old capital</h3>
           <div class="when">Move day · <span class="tag kyoto">Kyoto</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Hotel The Mitsui Kyoto</span></div>
           <p>The suitcases have already gone ahead by courier, so the family travels to Kyoto with only a day bag — under an hour by train, in reserved seats. Check in, settle, and let the afternoon stay slow.</p>
           <p>As the day cools, a first, flat, lantern-lit stroll along the <b>Shirakawa canal</b> and through the lanes of <b>Gion</b>. Dinner is the reward: silky <b>yudofu</b>, simmered tofu served as a graceful set beside a temple garden — warm, delicate, entirely cooked.</p>
         </div>
@@ -464,6 +484,7 @@
         <div>
           <h3>The bowing deer</h3>
           <div class="when">Half-day trip · <span class="tag kyoto">Nara</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Hotel The Mitsui Kyoto</span></div>
           <p>A short, reserved-seat ride reaches <b>Nara</b>, and it may become the trip's fondest memory. Hundreds of tame deer roam the broad, flat park, famous for bowing their heads in exchange for a cracker — a small, delighted moment made for grandparents.</p>
           <p>A gentle walk leads to <b>Todai-ji</b>, whose vast wooden hall shelters a bronze Buddha nearly fifteen meters tall. Lunch is a soothing iron pot of <b>kamameshi</b> rice before the easy ride home, ahead of the afternoon heat.</p>
           <div class="note"><b>An alternative:</b> prefer bamboo to deer? Swap this day for a morning in <b>Arashiyama</b> — the shaded grove, a riverside tofu lunch, and an optional pulled rickshaw so no one tires. There is time for one, not both.</div>
@@ -475,6 +496,7 @@
         <div>
           <h3>A slow farewell</h3>
           <div class="when">Transfer · <span class="tag" style="color:var(--airport)">By the airport</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Hotel Nikko Kansai Airport</span></div>
           <p>No rush. A full breakfast, perhaps one last flat wander around Nijo Castle's grounds or the sweet shops of Kyoto Station, and the bags sent ahead a final time. Then, while everyone is fresh, an easy express to the <b>airport hotel</b>, connected straight to the terminal.</p>
           <p>The evening is deliberately empty — an early dinner, unhurried packing, a good night's sleep before the flight.</p>
         </div>
@@ -508,17 +530,17 @@
       <div class="tl-day">
         <div class="tl-date">Aug 27</div><div class="tl-dow">Thu</div>
         <div class="tl-node b-koya c-koya"><svg><use href="#i-mountain"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">See the family off, then up the mountain</div></div>
+        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">See the family off, then up the mountain</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Koyasan temple stay</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 28</div><div class="tl-dow">Fri</div>
         <div class="tl-node b-koya c-koya"><svg><use href="#i-lantern"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Dawn prayers &amp; Okunoin, then back to Osaka</div></div>
+        <div class="tl-meta"><div class="tl-city bg-koya">Koyasan</div><div class="tl-what">Dawn prayers &amp; Okunoin, then back to Osaka</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 29</div><div class="tl-dow">Sat</div>
         <div class="tl-node b-air c-air"><svg><use href="#i-plane"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Slow Osaka morning, 4:55 pm flight</div></div>
+        <div class="tl-meta"><div class="tl-city bg-air">Depart</div><div class="tl-what">Slow Osaka morning, 4:55 pm flight</div><div class="tl-hotel"><svg><use href="#i-plane"/></svg>Flight home</div></div>
       </div>
     </div>
 
@@ -529,6 +551,7 @@
         <div>
           <h3>Up the sacred mountain</h3>
           <div class="when">Ascent · <span class="tag" style="color:var(--koya)">Koyasan</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Koyasan temple lodging (e.g. Eko-in)</span></div>
           <p>See your parents through to their noon flight at Kansai, then hand your big suitcases to the courier desk to travel ahead to the Osaka hotel — you'll go up the mountain with just an overnight bag.</p>
           <p>The climb is half the pleasure. The <b>Nankai Koya Line</b> rattles south into deepening green, then a little funicular cable car hauls you up to 800 metres. Settle into your temple lodging and wander the <b>Danjo Garan</b>, where the vermilion Konpon Daito pagoda glows among the cedars.</p>
           <p>Dinner is <b>shojin ryori</b>, the monks' refined vegetarian cooking — tofu, sesame, mountain vegetables — followed by a hot bath and an early, genuinely silent night.</p>
@@ -541,6 +564,7 @@
         <div>
           <h3>Dawn in the cedar forest</h3>
           <div class="when">The morning you came for · <span class="tag" style="color:var(--koya)">Koyasan → Osaka</span></div>
+          <div class="stay"><svg><use href="#i-bed"/></svg><span><span class="lbl">Stay</span> Swissôtel Nankai Osaka</span></div>
           <p>Rise for the <b>morning prayer service</b> and, at temples such as Eko-in, the <b>goma fire ritual</b> — chanting, incense and flame in the half-light. Quietly unforgettable.</p>
           <p>Then walk <b>Okunoin</b> while the light is still low and the forest breathes mist. A two-kilometre stone path winds beneath thousand-year-old cryptomeria, past a hundred thousand moss-cloaked lanterns and tombs, to the mausoleum of Kobo Daishi. This is the beautiful nature Nick came for — and at this hour it is nearly yours alone.</p>
           <p>After a temple breakfast, an unhurried descent brings you back to Osaka, where your bags are already waiting. Tonight, celebrate: <b>Kobe wagyu</b> seared on the teppan.</p>
