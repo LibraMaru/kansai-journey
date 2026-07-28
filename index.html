@@ -87,6 +87,31 @@
     border-radius:12px;padding:12px 16px;margin-top:14px;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
   .lug-note svg{width:20px;height:20px;flex:none;color:var(--osaka);margin-top:1px}
   .lug-note b{color:var(--ink)}
+  /* ---- vertical day board ---- */
+  .board{display:flex;flex-direction:column;gap:16px;margin-top:6px}
+  .bday{display:grid;grid-template-columns:162px 1fr 1fr;background:var(--card);border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .bday .rail{padding:18px 16px;display:flex;flex-direction:column;gap:5px;border-left:6px solid var(--line);background:var(--paper)}
+  .bd-date{font-family:var(--sans);font-weight:800;font-size:17px;color:var(--ink)}
+  .bd-dow{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .bd-city{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:3px 9px;border-radius:20px;align-self:flex-start;margin-top:4px}
+  .bd-hotel{font-family:var(--sans);font-size:11.5px;color:var(--ink2);margin-top:10px;display:flex;align-items:center;gap:5px;line-height:1.3}
+  .bd-hotel svg{width:13px;height:13px;flex:none;color:var(--muted)}
+  .bd-fwd{font-family:var(--sans);font-size:11px;font-weight:700;color:var(--osaka);margin-top:6px;display:flex;align-items:center;gap:5px}
+  .bd-fwd svg{width:12px;height:12px;flex:none}
+  .bcol{padding:16px 18px}
+  .bcol.acts{border-right:1px solid var(--line)}
+  .bcol h5{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    font-weight:700;margin:0 0 11px;display:flex;align-items:center;gap:7px}
+  .bcol h5 svg{width:16px;height:16px}
+  .bline{display:grid;grid-template-columns:72px 1fr;gap:10px;margin:0 0 9px;font-size:14.5px;line-height:1.42}
+  .bline:last-child{margin-bottom:0}
+  .bline .t{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding-top:3px}
+  .bcol.acts .bline .t{color:var(--kyoto)}
+  .bcol.meals .bline .t{color:var(--osaka)}
+  .bline .d{color:var(--ink2)}
+  .bline .d b{color:var(--ink);font-weight:600}
   .stay{display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;padding:5px 13px 5px 10px;
     border-radius:20px;background:var(--paper2);font-family:var(--sans);font-size:13.5px;color:var(--ink);line-height:1.3}
   .stay svg{width:17px;height:17px;flex:none;color:var(--muted)}
@@ -175,6 +200,11 @@
     .tl-what{max-width:none;font-size:15px}
     .tl-hotel{max-width:none;justify-content:flex-start}
     .tl-bag{max-width:none;justify-content:flex-start}
+    .bday{grid-template-columns:1fr}
+    .bcol.acts{border-right:none;border-top:1px solid var(--line)}
+    .bcol.meals{border-top:1px solid var(--line)}
+    .bday .rail{flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px 12px}
+    .bd-hotel,.bd-fwd{margin-top:0}
     .tl-city{margin:2px 0}
     .day{grid-template-columns:1fr;gap:10px}
     .day .art{display:flex;align-items:center;gap:14px}
@@ -451,6 +481,192 @@
       </div>
     </div>
     <div class="lug-note"><svg><use href="#i-case"/></svg><span><b>About the bags.</b> Within the Kansai region, any hotel front desk will forward your suitcases to the next hotel overnight — the takkyubin courier service, about ¥2,000 a bag — so you travel light on moving days. A <span style="color:var(--osaka);font-weight:700">red note</span> under a stop marks a bag-forwarding day — hand your suitcases in the evening before and they're waiting when you arrive.</span></div>
+  </section>
+
+  <!-- ================= DAY BOARD ================= -->
+  <section id="board">
+    <div class="sec-label">The Board · Every Day, Everything</div>
+    <h2 class="title">What you're doing, and where to eat</h2>
+    <p class="lead">The whole trip laid out day by day — the plan on the left, two or three ideas for each meal on the right. Everything at a glance, no reading required.</p>
+
+    <div class="board">
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--osaka)">
+          <div class="bd-date">Aug 21</div><div class="bd-dow">Friday</div>
+          <div class="bd-city bg-osaka">Osaka</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Evening</div><div class="d">Land at Kansai 6:30 pm; <b>private car</b> to the Namba hotel; settle in.</div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Warm udon · Okonomiyaki (Mizuno) · a hotel-area izakaya</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--osaka)">
+          <div class="bd-date">Aug 22</div><div class="bd-dow">Saturday</div>
+          <div class="bd-city bg-osaka">Osaka</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Morning</div><div class="d"><b>Osaka Castle</b> (elevator up to the keep), cool hours</div></div>
+          <div class="bline"><div class="t">Midday</div><div class="d"><b>Shinsaibashi arcades</b> — vintage bags &amp; watches, indoors</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d"><b>Kuromon Market</b> then <b>Dotonbori</b> lights</div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel buffet · Marufuku Coffee (thick toast)</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">Kuromon Market grazing · udon/soba · depachika hall</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Kushikatsu (Daruma) · Teppanyaki wagyu · Okonomiyaki</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--onsen)">
+          <div class="bd-date">Aug 23</div><div class="bd-dow">Sunday</div>
+          <div class="bd-city bg-onsen">Arima Onsen</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div>
+          <div class="bd-fwd"><svg><use href="#i-case"/></svg>Forward bags → Kyoto</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Morning</div><div class="d">Express bus to <b>Arima</b> (~1 hr); the gold &amp; silver baths</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d">Old-town stroll, carbonated senbei; bus back to Osaka</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d">An easy dinner in the city</div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel buffet</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">Arima kaiseki-style set (no raw fish) · a ryokan lunch · soba</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Osaka wagyu · Unagi (Izumoya) · a light izakaya</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--kyoto)">
+          <div class="bd-date">Aug 24</div><div class="bd-dow">Monday</div>
+          <div class="bd-city bg-kyoto">Kyoto</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>The Thousand Kyoto</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Late morn</div><div class="d">Train to <b>Kyoto</b> (Shinkansen 14 min); check in, settle</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d"><b>Shirakawa canal</b> &amp; <b>Gion</b> lantern stroll</div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel · a Kyoto Station café</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">Nishiki Market bites · soba/udon · an obanzai set</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Yudofu (Nanzenji Junsei) · Obanzai · Unagi (Kaneyo)</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--kyoto)">
+          <div class="bd-date">Aug 25</div><div class="bd-dow">Tuesday</div>
+          <div class="bd-city bg-kyoto">Nara · day trip</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>The Thousand Kyoto</div>
+          <div class="bd-fwd"><svg><use href="#i-case"/></svg>Forward bags → Osaka</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Morning</div><div class="d">Train to <b>Nara</b> (~45 min); the deer &amp; <b>Todai-ji</b> Great Buddha</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d">Back to Kyoto, rest &nbsp;<i>(or swap for Arashiyama)</i></div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">Nara kamameshi · chagayu (tea rice) · somen</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Kyoto yudofu · Obanzai · a cooked kaiseki (no sashimi)</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--osaka)">
+          <div class="bd-date">Aug 26</div><div class="bd-dow">Wednesday</div>
+          <div class="bd-city bg-osaka">Osaka</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>Hotel Royal Classic</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Morning</div><div class="d">Slow Kyoto morning (station shops / Nijo); train to Osaka</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d">All check in together; settle</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d">Last family dinner by <b>Dotonbori</b></div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel · Kyoto Station depachika</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">En route · an Osaka café · station bento</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Wagyu teppanyaki · Okonomiyaki · Unagi</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--koya)">
+          <div class="bd-date">Aug 27</div><div class="bd-dow">Thursday</div>
+          <div class="bd-city bg-koya">Osaka · Nick &amp; Ping</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>Hotel Royal Classic</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Morning</div><div class="d">Parents to Kansai by car (~50 min) for the noon flight</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d"><b>Shinsaibashi</b> — skincare &amp; makeup, watches &amp; bags</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d">Dotonbori</div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel · Marufuku Coffee</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">A Shinsaibashi café · Rikuro's cheesecake · depachika</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Kushikatsu · Teppanyaki wagyu · Ramen</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--koya)">
+          <div class="bd-date">Aug 28</div><div class="bd-dow">Friday</div>
+          <div class="bd-city bg-koya">Kobe</div>
+          <div class="bd-hotel"><svg><use href="#i-bed"/></svg>Hotel Royal Classic</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Late morn</div><div class="d">Osaka → Shin-Kobe (~30 min); <b>Nunobiki Ropeway</b>, herb garden &amp; falls</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d"><b>Mt Rokko</b> Garden Terrace &amp; the big views</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d">Kobe beef; ride back to Osaka</div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">Herb Garden café · a Kobe café · sweets</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">Kobe beef teppanyaki (book ahead) · yakiniku</div></div>
+        </div>
+      </div>
+
+      <div class="bday">
+        <div class="rail" style="border-left-color:var(--airport)">
+          <div class="bd-date">Aug 29</div><div class="bd-dow">Saturday</div>
+          <div class="bd-city bg-air">Depart</div>
+          <div class="bd-hotel"><svg><use href="#i-plane"/></svg>4:55 pm flight home</div>
+        </div>
+        <div class="bcol acts">
+          <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
+          <div class="bline"><div class="t">Morning</div><div class="d">Slow Osaka morning; last souvenirs &amp; skincare</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d">Namba → Kansai (~50 min); check in for the <b>4:55 pm</b> flight</div></div>
+        </div>
+        <div class="bcol meals">
+          <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
+          <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel · a café</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">A Namba quick bite · depachika bento to-go · airport dining</div></div>
+          <div class="bline"><div class="t">Dinner</div><div class="d">On the flight home</div></div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <!-- ================= FEATURE INTRO ================= -->
