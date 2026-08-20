@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Osaka Trip</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   :root{
     --ink:#1c1a17; --ink2:#4a453d; --muted:#7c756a;
@@ -213,9 +214,73 @@
     .split{grid-template-columns:1fr}
   }
   @media print{ body{background:#fff} .masthead .meta{display:none} .day,.panel,.chip,.kb,.timeline{box-shadow:none} }
+
+  /* ---------- view toggle + map ---------- */
+  .topbar{position:fixed;top:0;left:0;right:0;height:46px;z-index:3000;background:var(--paper);
+    border-bottom:2px solid var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+  .topbar .seg{display:flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
+  .topbar .seg button{font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+    padding:8px 15px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+  .topbar .seg button.on{background:var(--ink);color:var(--paper)}
+  .topbar .tb-brand{font-family:var(--serif);font-weight:700;letter-spacing:.02em;font-size:16px}
+  .topbar .tb-brand em{color:var(--osaka);font-style:normal}
+  body{padding-top:46px}
+  #mapview{position:fixed;top:46px;left:0;right:0;bottom:0;z-index:1500;display:none}
+  body.map-mode{overflow:hidden}
+  body.map-mode #mapview{display:block}
+  #leafmap{position:absolute;inset:0}
+  .leaflet-container{background:#e9e2d4;font-family:var(--sans)}
+  .mk .pin{width:28px;height:28px;border-radius:50%;border:2px solid #fff;
+    box-shadow:0 1px 5px rgba(30,20,10,.4);display:flex;align-items:center;justify-content:center;color:#fff}
+  .mk .pin svg{width:15px;height:15px}
+  .leaflet-popup-content-wrapper{border-radius:10px;box-shadow:0 8px 24px rgba(40,30,15,.2)}
+  .leaflet-popup-content{margin:12px 14px}
+  .pop-nm{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--ink);margin-bottom:3px;line-height:1.25}
+  .pop-note{font-family:var(--sans);font-size:12.5px;color:var(--ink2);line-height:1.5}
+  .pop-jump{display:inline-block;margin-top:9px;font:600 10.5px/1 var(--sans);letter-spacing:.1em;
+    text-transform:uppercase;color:var(--kyoto);cursor:pointer;text-decoration:none}
+  .fbar{position:absolute;left:14px;bottom:14px;z-index:1600;background:rgba(250,246,238,.95);
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);border:1px solid var(--line);
+    border-radius:12px;box-shadow:var(--shadow);padding:10px 12px;max-width:calc(100% - 28px)}
+  .frow{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+  .frow + .frow{margin-top:8px}
+  .frow .flab{font:700 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);width:32px;flex:none}
+  .frow button{font:600 12px/1 var(--sans);padding:6px 10px;border:1px solid var(--line);
+    background:#fff;color:var(--ink2);border-radius:999px;cursor:pointer}
+  .frow button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .map-hint{position:absolute;right:14px;top:14px;z-index:1600;font:500 12px/1.45 var(--sans);
+    color:var(--ink2);background:rgba(250,246,238,.92);border:1px solid var(--line);
+    border-radius:8px;padding:8px 11px;max-width:210px}
+  @media(max-width:760px){
+    .topbar .tb-brand{font-size:13px}
+    .map-hint{display:none}
+    .fbar{left:8px;right:8px;bottom:8px;max-width:none;padding:9px 10px}
+    .frow{gap:5px}
+    .frow button{padding:5px 8px;font-size:11px}
+    .frow .flab{width:100%;margin-bottom:1px}
+  }
 </style>
 </head>
 <body>
+
+<!-- ================= VIEW TOGGLE ================= -->
+<div class="topbar">
+  <div class="seg">
+    <button data-view="map">Map</button>
+    <button data-view="page" class="on">Page</button>
+  </div>
+  <div class="tb-brand">Osaka Trip · <em>Kansai</em> ’26</div>
+</div>
+
+<!-- ================= MAP VIEW ================= -->
+<div id="mapview">
+  <div id="leafmap"></div>
+  <div class="map-hint">Tap a pin for details. Filter by day, or by what you’re after.</div>
+  <div class="fbar">
+    <div class="frow" id="fday"><span class="flab">Day</span></div>
+    <div class="frow" id="fsee"><span class="flab">See</span></div>
+  </div>
+</div>
 
 <!-- ================= SVG SYMBOL LIBRARY ================= -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -441,8 +506,8 @@
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 22</div><div class="tl-dow">Sat</div>
-        <div class="tl-node b-osaka c-osaka"><svg><use href="#i-shop"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Castle, then watches &amp; vintage bags</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
+        <div class="tl-node b-osaka c-osaka"><svg><use href="#i-castle"/></svg></div>
+        <div class="tl-meta"><div class="tl-city bg-osaka">Osaka</div><div class="tl-what">Castle &amp; old-city lanes; Nick lands tonight</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Swissôtel Nankai</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 23</div><div class="tl-dow">Sun</div>
@@ -472,7 +537,7 @@
       <div class="tl-day">
         <div class="tl-date">Aug 28</div><div class="tl-dow">Fri</div>
         <div class="tl-node b-koya c-koya"><svg><use href="#i-mountain"/></svg></div>
-        <div class="tl-meta"><div class="tl-city bg-koya">Kobe</div><div class="tl-what">Mt Rokko &amp; Nunobiki, then Kobe beef</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Hotel Royal Classic</div></div>
+        <div class="tl-meta"><div class="tl-city bg-koya">Osaka + Kobe</div><div class="tl-what">Watch &amp; bag hunt, then Kobe &amp; Mt Rokko</div><div class="tl-hotel"><svg><use href="#i-bed"/></svg>Hotel Royal Classic</div></div>
       </div>
       <div class="tl-day">
         <div class="tl-date">Aug 29</div><div class="tl-dow">Sat</div>
@@ -516,8 +581,8 @@
         <div class="bcol acts">
           <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
           <div class="bline"><div class="t">Morning</div><div class="d"><b>Osaka Castle</b> (elevator up to the keep), cool hours</div></div>
-          <div class="bline"><div class="t">Midday</div><div class="d"><b>Shinsaibashi arcades</b> — vintage bags &amp; watches, indoors</div></div>
-          <div class="bline"><div class="t">Evening</div><div class="d"><b>Kuromon Market</b>, <b>Dotonbori</b> lights &amp; tiny <b>Hozen-ji</b> temple (off the lane)</div></div>
+          <div class="bline"><div class="t">Midday</div><div class="d"><b>Osaka Museum of History</b> — cool galleries, sweeping castle views; then a slow lunch &amp; rest</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d"><b>Kuromon Market</b>, <b>Dotonbori</b> lights &amp; tiny <b>Hozen-ji</b> temple — <b>Nick lands tonight</b></div></div>
         </div>
         <div class="bcol meals">
           <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
@@ -616,7 +681,7 @@
         <div class="bcol acts">
           <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
           <div class="bline"><div class="t">Morning</div><div class="d">Parents to Kansai by car (~50 min) for the noon flight</div></div>
-          <div class="bline"><div class="t">Afternoon</div><div class="d"><b>Shinsaibashi</b> — skincare &amp; makeup, watches &amp; bags</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d"><b>Shinsaibashi</b> — skincare &amp; makeup shopping for Ping</div></div>
           <div class="bline"><div class="t">Evening</div><div class="d">Dotonbori</div></div>
         </div>
         <div class="bcol meals">
@@ -630,19 +695,19 @@
       <div class="bday">
         <div class="rail" style="border-left-color:var(--koya)">
           <div class="bd-date">Aug 28</div><div class="bd-dow">Friday</div>
-          <div class="bd-city bg-koya">Kobe</div>
+          <div class="bd-city bg-koya">Osaka + Kobe</div>
           <div class="bd-hotel"><svg><use href="#i-bed"/></svg>Hotel Royal Classic</div>
         </div>
         <div class="bcol acts">
           <h5><svg class="c-kyoto"><use href="#i-sun"/></svg>The day</h5>
-          <div class="bline"><div class="t">Late morn</div><div class="d">Osaka → Shin-Kobe (~30 min); <b>Nunobiki Ropeway</b>, herb garden &amp; falls</div></div>
-          <div class="bline"><div class="t">Afternoon</div><div class="d"><b>Mt Rokko</b> Garden Terrace &amp; the big views</div></div>
-          <div class="bline"><div class="t">Evening</div><div class="d">Kobe beef; ride back to Osaka</div></div>
+          <div class="bline"><div class="t">Morning</div><div class="d"><b>Shinsaibashi</b> — Nick's <b>watch hunt</b> &amp; <b>vintage-bag</b> browse, cool arcades</div></div>
+          <div class="bline"><div class="t">Afternoon</div><div class="d">Osaka → Shin-Kobe (~30 min); <b>Nunobiki Ropeway</b>, herb garden &amp; falls</div></div>
+          <div class="bline"><div class="t">Evening</div><div class="d"><b>Mt Rokko</b> Garden Terrace &amp; the big views; Kobe beef, ride back to Osaka</div></div>
         </div>
         <div class="bcol meals">
           <h5><svg class="c-osaka"><use href="#i-food"/></svg>Where to eat</h5>
           <div class="bline"><div class="t">Breakfast</div><div class="d">Hotel</div></div>
-          <div class="bline"><div class="t">Lunch</div><div class="d">Herb Garden café · a Kobe café · sweets</div></div>
+          <div class="bline"><div class="t">Lunch</div><div class="d">A Shinsaibashi café · en route · Herb Garden café</div></div>
           <div class="bline"><div class="t">Dinner</div><div class="d">Kobe beef teppanyaki (book ahead) · yakiniku</div></div>
         </div>
       </div>
@@ -673,7 +738,7 @@
   <section id="hunt">
     <div class="sec-label">The Hunt · Osaka's Resale District</div>
     <h2 class="title">Watches for Nick, vintage bags for the collection</h2>
-    <p class="lead">Japan is among the finest places on earth to buy pre-owned luxury — impeccably kept, meticulously authenticated, often below home prices. In Osaka it clusters in the covered arcades of Shinsaibashi and Namba, cool and dry whatever the sky is doing. Both hunts fit into one afternoon on foot.</p>
+    <p class="lead">Japan is among the finest places on earth to buy pre-owned luxury — impeccably kept, meticulously authenticated, often below home prices. In Osaka it clusters in the covered arcades of Shinsaibashi and Namba, cool and dry whatever the sky is doing. Both hunts fold neatly into one relaxed morning on foot.</p>
 
     <div class="split">
       <div class="panel">
@@ -818,5 +883,115 @@
   </div>
 </footer>
 
+<!-- ================= MAP ENGINE ================= -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+  // Places — watch & bag hunt re-tagged to Aug 28 to match the itinerary
+  const PLACES = [
+  {id:'kix',name:'Kansai Airport',note:'Land 6:30 pm · depart 4:55 pm',lat:34.43420,lon:135.22252,kind:'air',days:['aug21','aug29'],jump:'day-aug21'},
+  {id:'swiss',name:'Swissôtel Nankai',note:'Home base Aug 21–23 · atop Namba',lat:34.66417,lon:135.50133,kind:'hotel',days:['aug21','aug22','aug23'],jump:'day-aug21'},
+  {id:'castle',name:'Osaka Castle',note:'Elevator to the keep · cool morning',lat:34.68718,lon:135.52540,kind:'sight',days:['aug22'],jump:'day-aug22'},
+  {id:'museum',name:'Osaka Museum of History',note:'Cool galleries, sweeping castle views',lat:34.68430,lon:135.51960,kind:'sight',days:['aug22'],jump:'day-aug22'},
+  {id:'shinsa',name:'Shinsaibashi',note:'Arcades · bags, watches, J-beauty',lat:34.67452,lon:135.50036,kind:'shop',days:['aug27','aug28'],jump:'day-aug28'},
+  {id:'komehyo',name:'Komehyo',note:'Ping’s first stop — multi-floor authenticated bags, every brand and price',lat:34.67262,lon:135.50219,kind:'bag',days:['bags','aug28'],jump:'hunt'},
+  {id:'okura',name:'Okura',note:'Hermès Kelly and Birkin specialist, plus fine jewelry — the grail stop',lat:34.67296,lon:135.50194,kind:'bag',days:['bags','aug28'],jump:'hunt'},
+  {id:'brandoff',name:'Brand Off',note:'Deep LV and Hermès with clear condition grading. Watches sit beside the bags.',lat:34.67296,lon:135.50194,kind:'bag',days:['bags','aug28'],jump:'hunt'},
+  {id:'amico',name:'Amico Vintage',note:'European houses — vintage Celine, Saint Laurent, classic Chanel flaps. Higashi-Shinsaibashi.',lat:34.67294,lon:135.50457,kind:'bag',days:['bags','aug28'],jump:'hunt'},
+  {id:'jiku',name:'Brand Jiku',note:'Collectors’ authenticated Chanel, older LV canvas and Fendi.',lat:34.67242,lon:135.50104,kind:'bag',days:['bags','aug28'],jump:'hunt'},
+  {id:'qoo',name:'Vintage Qoo',note:'Rarer authenticated pieces on the arcade — pair with Brand Jiku.',lat:34.67487,lon:135.50211,kind:'bag',days:['bags','aug28'],jump:'hunt'},
+  {id:'cosme',name:'@cosme STORE',note:'Japan’s beauty-ranking shop — current bestsellers, one bright floor.',lat:34.67393,lon:135.50097,kind:'beauty',days:['beauty','aug27'],jump:'beauty'},
+  {id:'daimaru',name:'Daimaru Beauty',note:'Prestige counters — Clé de Peau, Decorté, SK-II, Suqqu. Gift-wrap.',lat:34.67324,lon:135.50096,kind:'beauty',days:['beauty','aug27'],jump:'beauty'},
+  {id:'matukiyo',name:'Matsumoto Kiyoshi',note:'Drugstore haul — Hada Labo, Anessa, Biore UV. Passport for tax-free.',lat:34.66955,lon:135.50101,kind:'beauty',days:['beauty','aug27'],jump:'beauty'},
+  {id:'kuromon',name:'Kuromon Market',note:'Grazing lunch · last-day sashimi bowl',lat:34.66419,lon:135.50695,kind:'food',days:['aug22','aug29'],jump:'day-aug22'},
+  {id:'doton',name:'Dotonbori',note:'Lights, last family dinner, evening wander',lat:34.66903,lon:135.50157,kind:'sight',days:['aug22','aug26','aug27'],jump:'day-aug22'},
+  {id:'hozen',name:'Hozen-ji',note:'Tiny temple off the lane',lat:34.66785,lon:135.50260,kind:'temple',days:['aug22'],jump:'day-aug22'},
+  {id:'arima',name:'Arima Onsen',note:'Gold & silver baths · ~1 hr bus',lat:34.79926,lon:135.24627,kind:'onsen',days:['aug23'],jump:'day-aug23'},
+  {id:'thousand',name:'The Thousand Kyoto',note:'By Kyoto Station · Aug 24–25',lat:34.98675,lon:135.76179,kind:'hotel',days:['aug24','aug25'],jump:'day-aug24'},
+  {id:'nishiki',name:'Nishiki Market',note:'Kyoto’s kitchen · covered lane',lat:35.00502,lon:135.76557,kind:'food',days:['aug24'],jump:'day-aug24'},
+  {id:'shirakawa',name:'Shirakawa & Gion',note:'Lantern stroll along the canal',lat:35.00390,lon:135.77840,kind:'sight',days:['aug24'],jump:'day-aug24'},
+  {id:'todai',name:'Tōdai-ji',note:'Great Buddha · deer park',lat:34.68824,lon:135.83976,kind:'temple',days:['aug25'],jump:'day-aug25'},
+  {id:'royal',name:'Hotel Royal Classic',note:'Namba · Aug 26–28',lat:34.66591,lon:135.49988,kind:'hotel',days:['aug26','aug27','aug28','aug29'],jump:'day-aug26'},
+  {id:'shiten',name:'Shitennō-ji',note:'Japan’s oldest temple',lat:34.65445,lon:135.51645,kind:'temple',days:['aug26'],jump:'day-aug26'},
+  {id:'sumiyoshi',name:'Sumiyoshi Taisha',note:'Drum bridge · iconic shrine',lat:34.61300,lon:135.49310,kind:'temple',days:['aug26'],jump:'day-aug26'},
+  {id:'nunobiki',name:'Nunobiki Herb Garden',note:'Ropeway from Shin-Kobe — views, greenhouse, the tourist half of the hillside.',lat:34.71701,lon:135.19092,kind:'sight',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'nunobikiFalls',name:'Nunobiki Falls',note:'Forest path from Shin-Kobe, 15–30 min. Real waterfall, no ropeway required.',lat:34.70970,lon:135.19382,kind:'sight',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'shinkobe',name:'Shin-Kobe',note:'~30 min from Namba. Trailhead and ropeway start here.',lat:34.70629,lon:135.19547,kind:'air',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'sorakuen',name:'Sōrakuen',note:'Kobe’s stroll garden — pond, old house, tea at the parlor. An hour, maybe two.',lat:34.69262,lon:135.18178,kind:'sight',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'kyukyo',name:'Kyūkyoryūchi',note:'Former foreign settlement — stone streets, small shops, quieter than Chinatown.',lat:34.68719,lon:135.19241,kind:'shop',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'motomachi',name:'Motomachi',note:'Covered arcade and side streets between Sannomiya and the settlement.',lat:34.68694,lon:135.18413,kind:'shop',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'ashiya',name:'Ashiya',note:'One stop east of Sannomiya. Residential, cafés, almost no itinerary energy.',lat:34.73424,lon:135.30707,kind:'sight',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'rokko',name:'Rokkō Garden Terrace',note:'Big views · then Kobe beef. The postcard deck.',lat:34.76362,lon:135.24599,kind:'sight',days:['kobe','aug28'],jump:'day-aug28'},
+  {id:'colle',name:'Watch Colle',note:'Umeda basement · overhauled vintage Seiko to Rolex',lat:34.69890,lon:135.49646,kind:'watch',days:['watch','aug28'],jump:'hunt'},
+  {id:'amemura',name:'BB Amemura',note:'New American Plaza 1F · 1-16-12 Nishishinsaibashi · vintage in the back',lat:34.67201,lon:135.49880,kind:'watch',days:['watch','aug28'],jump:'hunt'},
+  {id:'okuraWatch',name:'OKURA Namba',note:'~2,000 watches, in-house appraisers — 3 min from Namba Station',lat:34.66575,lon:135.50104,kind:'watch',days:['watch','aug28'],jump:'hunt'},
+  {id:'watchnian',name:'Watchnian',note:'Rolex, Patek, AP specialists — Fujii Bldg 1F, Shinsaibashisuji 1-5-18',lat:34.67211,lon:135.50154,kind:'watch',days:['watch','aug28'],jump:'hunt'},
+  {id:'kamekichi',name:'Kamekichi',note:'25 years in the trade, keen prices, English- and Chinese-speaking staff',lat:34.67242,lon:135.50104,kind:'watch',days:['watch','aug28'],jump:'hunt'},
+  {id:'bestv',name:'Best Vintage',note:'Grand Front South 4F, Umeda — ~500 watches by type: chrono, diver, military',lat:34.70411,lon:135.49470,kind:'watch',days:['watch','aug28'],jump:'hunt'},
+  {id:'knis',name:'KNIS Kyoto',note:'Say “Nis” · Galerie Yamashita 2F · experimental microbrand',lat:35.00890,lon:135.76790,kind:'watch',days:['watch','aug24'],jump:'hunt'},
+  {id:'kuoe',name:'Kuoe Kyoto',note:'Tohbeh Bldg #105 · 224 Eirakucho · 1940s field watches',lat:35.00789,lon:135.76681,kind:'watch',days:['watch','aug24'],jump:'hunt'}
+  ];
+
+  const KIND={
+    hotel:{c:'#1c1a17',i:'i-bed'}, air:{c:'#6d6459',i:'i-plane'},
+    sight:{c:'#4a7c3f',i:'i-sun'}, shop:{c:'#6d6459',i:'i-shop'},
+    bag:{c:'#8a4b6b',i:'i-gift'}, beauty:{c:'#c06a86',i:'i-beauty'},
+    food:{c:'#c0402c',i:'i-food'}, temple:{c:'#a9812a',i:'i-torii'},
+    onsen:{c:'#2e7d74',i:'i-onsen'}, watch:{c:'#234f6e',i:'i-shop'}
+  };
+  const DAYS=[['all','All'],['aug21','21'],['aug22','22'],['aug23','23'],['aug24','24'],['aug25','25'],['aug26','26'],['aug27','27'],['aug28','28'],['aug29','29']];
+  const SEES=[['all','All'],['hotel','Hotels'],['sight','Sights'],['food','Food'],['temple','Temples'],['watch','Watches'],['bag','Bags'],['beauty','Beauty'],['onsen','Onsen'],['kobe','Kobe'],['air','Airport']];
+  const JUMP={hunt:'#hunt',beauty:'#beauty'};
+  const ROUTE=[[34.43420,135.22252],[34.66417,135.50133],[34.68718,135.52540],[34.79926,135.24627],[34.98675,135.76179],[34.68824,135.83976],[34.66591,135.49988],[34.76362,135.24599],[34.43420,135.22252]];
+
+  let map,layer,built=false,curDay='all',curSee='all';
+
+  function dayMatch(p){ return curDay==='all' || p.days.indexOf(curDay)>-1; }
+  function seeMatch(p){
+    if(curSee==='all') return true;
+    if(curSee==='kobe') return p.days.indexOf('kobe')>-1;
+    if(curSee==='sight') return p.kind==='sight'||p.kind==='shop';
+    return p.kind===curSee;
+  }
+  function render(){
+    if(!layer) return;
+    layer.clearLayers();
+    PLACES.forEach(function(p){
+      if(!(dayMatch(p)&&seeMatch(p))) return;
+      var k=KIND[p.kind]||KIND.sight;
+      var icon=L.divIcon({className:'mk',iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-13],
+        html:'<span class="pin" style="background:'+k.c+'"><svg><use href="#'+k.i+'"/></svg></span>'});
+      var m=L.marker([p.lat,p.lon],{icon:icon}).addTo(layer);
+      var tgt = p.jump && p.jump.indexOf('day-')===0 ? '#board' : (JUMP[p.jump]||'');
+      var pop='<div class="pop-nm">'+p.name+'</div><div class="pop-note">'+p.note+'</div>';
+      if(tgt) pop+='<a class="pop-jump" href="'+tgt+'" onclick="window.__toPage()">In the itinerary →</a>';
+      m.bindPopup(pop);
+    });
+  }
+  function initMap(){
+    map=L.map('leafmap',{zoomControl:true,scrollWheelZoom:true}).setView([34.72,135.42],10);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+      {subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+    L.polyline(ROUTE,{color:'#1c1a17',weight:2,opacity:.5,dashArray:'6 8'}).addTo(map);
+    layer=L.layerGroup().addTo(map);
+    render();
+    map.fitBounds(ROUTE,{padding:[46,46]});
+  }
+  window.__toPage=function(){ setView('page'); };
+  function setView(v){
+    var mm=(v==='map');
+    document.body.classList.toggle('map-mode',mm);
+    document.querySelectorAll('.topbar .seg button').forEach(function(b){ b.classList.toggle('on',b.dataset.view===v); });
+    if(mm){ if(!built){ initMap(); built=true; } setTimeout(function(){ map.invalidateSize(); },70); }
+  }
+  document.querySelectorAll('.topbar .seg button').forEach(function(b){ b.addEventListener('click',function(){ setView(b.dataset.view); }); });
+
+  var fday=document.getElementById('fday'), fsee=document.getElementById('fsee');
+  DAYS.forEach(function(d){ var b=document.createElement('button'); b.textContent=d[1]; if(d[0]==='all')b.classList.add('on');
+    b.onclick=function(){ curDay=d[0]; fday.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);}); render(); }; fday.appendChild(b); });
+  SEES.forEach(function(s){ var b=document.createElement('button'); b.textContent=s[1]; if(s[0]==='all')b.classList.add('on');
+    b.onclick=function(){ curSee=s[0]; fsee.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);}); render(); }; fsee.appendChild(b); });
+})();
+</script>
 </body>
 </html>
